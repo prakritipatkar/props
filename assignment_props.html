@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>props assignment</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body {
+            background-color: #a9dbb7; 
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 50px;
+        }
+        .card {
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .card-body {
+            padding: 80px;
+            text-align: center;
+        }
+        .card-hello {
+            background: linear-gradient(135deg, #9c10ab, #f5576c);
+            color: #170505;
+        }
+        .card-world {
+            background: linear-gradient(135deg, #dcec2a, #3bb2b8);
+            color: #0f0303;
+        }
+        h1, h3 {
+            margin: 0;
+        }
+        h5 {
+            margin-top: 10px;
+            font-weight: normal;
+            color: #092f54;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="root"></div>
+
+    <script type="text/babel">
+        const rootNode = ReactDOM.createRoot(document.getElementById("root"));
+
+        // Class Component
+        class ClassHelloProps extends React.Component {
+            render() {
+                return (
+                    <div className="card card-hello">
+                        <div className="card-body">
+                            <h2> Hi, this is {this.props.name}! <br/></h2>
+                            <h5> This is a Class component </h5>
+                        </div>
+                    </div>
+                );
+            }
+        }
+
+        // Function Component with Hook
+        const HelloWorldProps = ({ name }) => {
+            const [greeting, setGreeting] = React.useState(`Hi, this is ${name}!`);
+
+            React.useEffect(() => {
+                setGreeting(`Hi, this is ${name}!`);
+            }, [name]);
+
+            return (
+                <div className="card card-world">
+                    <div className="card-body">
+                        <h2>{greeting}</h2>
+                        <h5> This is a Function component </h5>
+                    </div>
+                </div>
+            );
+        }
+
+        const App = () => {
+            return (
+                <>
+                    <ClassHelloProps name="Kris John" />
+                    <HelloWorldProps name="Rachel Green" />
+                </>
+            );
+        }
+
+        rootNode.render(<App />);
+    </script>
+</body>
+</html>
